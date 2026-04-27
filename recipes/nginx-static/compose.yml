@@ -1,0 +1,18 @@
+services:
+  web:
+    image: nginx:alpine
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 128M
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    labels:
+      simpledeploy.endpoints.0.domain: "${DOMAIN:-example.com}"
+      simpledeploy.endpoints.0.port: "80"
+      simpledeploy.endpoints.0.tls: "auto"

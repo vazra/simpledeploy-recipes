@@ -1,0 +1,8 @@
+schema_version: 1
+id: nginx-static
+name: Nginx Static Site
+icon: "🌐"
+category: web
+description: Serve static HTML/CSS/JS with Nginx.
+tags: [static, website, html, nginx]
+author: vazra
