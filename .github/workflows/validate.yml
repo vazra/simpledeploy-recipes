@@ -1,0 +1,35 @@
+name: Validate recipes
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Schema + structural validation
+        run: node scripts/validate.mjs
+      - name: Build index (catches index-only failures)
+        run: node scripts/build-index.mjs
+      - name: Image manifest inspect
+        run: |
+          set -e
+          for compose in recipes/*/compose.yml; do
+            slug=$(basename "$(dirname "$compose")")
+            echo "::group::$slug images"
+            images=$(node --input-type=module -e "import yaml from 'js-yaml';import {readFileSync} from 'node:fs';const c=yaml.load(readFileSync('$compose','utf8'));const out=new Set();for(const s of Object.values(c.services||{})){if(s.image)out.add(s.image);}console.log([...out].join('\n'));")
+            for img in $images; do
+              if [[ "$img" == *'${'* ]]; then echo "skip $img (var)"; continue; fi
+              echo "inspect $img"
+              docker manifest inspect "$img" >/dev/null
+            done
+            echo "::endgroup::"
+          done
