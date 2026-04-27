@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Recipe index",
+  "type": "object",
+  "required": ["schema_version", "generated_at", "recipes"],
+  "properties": {
+    "schema_version": { "type": "integer", "enum": [1] },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "recipes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "category", "description", "compose_url", "readme_url"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "icon": { "type": "string" },
+          "category": { "type": "string" },
+          "description": { "type": "string" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "author": { "type": "string" },
+          "homepage": { "type": "string" },
+          "compose_url": { "type": "string" },
+          "readme_url": { "type": "string" },
+          "screenshot_url": { "type": "string" },
+          "schema_version": { "type": "integer" },
+          "min_simpledeploy_version": { "type": "string" }
+        }
+      }
+    }
+  }
+}

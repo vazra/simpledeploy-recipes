@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SimpleDeploy Recipe",
+  "type": "object",
+  "required": ["schema_version", "id", "name", "category", "description"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "type": "integer", "enum": [1] },
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*[a-z0-9]$", "minLength": 2, "maxLength": 64 },
+    "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "icon": { "type": "string", "maxLength": 8 },
+    "category": {
+      "type": "string",
+      "enum": ["web", "dev-tools", "databases", "storage", "productivity", "observability", "auth", "mail", "ci"]
+    },
+    "description": { "type": "string", "minLength": 1, "maxLength": 240 },
+    "tags": { "type": "array", "items": { "type": "string", "maxLength": 32 }, "maxItems": 10 },
+    "author": { "type": "string", "maxLength": 80 },
+    "homepage": { "type": "string", "format": "uri" },
+    "min_simpledeploy_version": { "type": "string" }
+  }
+}
