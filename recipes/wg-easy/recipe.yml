@@ -1,0 +1,9 @@
+schema_version: 1
+id: wg-easy
+name: WireGuard VPN (wg-easy)
+icon: "🛡️"
+category: productivity
+description: WireGuard VPN server with a web admin UI for managing peers.
+tags: [vpn, wireguard, networking, privacy]
+author: vazra
+homepage: https://github.com/wg-easy/wg-easy
