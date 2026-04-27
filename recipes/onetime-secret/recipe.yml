@@ -1,0 +1,9 @@
+schema_version: 1
+id: onetime-secret
+name: Onetime Secret
+icon: "🔐"
+category: productivity
+description: Share sensitive info via self-destructing one-time links.
+tags: [secrets, sharing, security, privacy]
+author: vazra
+homepage: https://onetimesecret.com
